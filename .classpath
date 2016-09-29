@@ -3,18 +3,18 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/commons-lang-2.1 2.jar"/>
 	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/commons-lang-2.1.jar"/>
-	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/jgap 2.jar"/>
-	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/jgap-examples 2.jar"/>
-	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/jgap-examples.jar"/>
-	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/jgap.jar"/>
-	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/log4j 2.jar"/>
-	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/log4j.jar"/>
-	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/weka-src.jar"/>
 	<classpathentry kind="lib" path="/Users/JackyChang/Downloads/WekaGP-3-4-12/weka-src.jar"/>
 	<classpathentry kind="lib" path="/Users/JackyChang/Downloads/libsvm-3.21/java/libsvm.jar"/>
 	<classpathentry kind="lib" path="/Users/JackyChang/Downloads/WLSVM/lib/wlsvm.jar"/>
 	<classpathentry kind="lib" path="/Users/JackyChang/Downloads/weka-3.7.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/JackyChang/Desktop/deploy.jar"/>
+	<classpathentry kind="lib" path="/Users/JackyChang/Documents/workspace/COMP422_P2_JC/lib/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="/Users/JackyChang/Documents/workspace/COMP422_P2_JC/lib/jgap-examples.jar"/>
+	<classpathentry kind="lib" path="/Users/JackyChang/Documents/workspace/COMP422_P2_JC/lib/jgap.jar"/>
+	<classpathentry kind="lib" path="/Users/JackyChang/Documents/workspace/COMP422_P2_JC/lib/log4j.jar"/>
+	<classpathentry kind="lib" path="/Users/JackyChang/Documents/workspace/COMP422_P2_JC/lib/pentaho-package-manager-1.0.6.jar"/>
+	<classpathentry kind="lib" path="/Users/JackyChang/Documents/workspace/COMP422_P2_JC/lib/weka-src.jar"/>
+	<classpathentry kind="lib" path="/Users/JackyChang/Documents/workspace/COMP422_P2_JC/lib/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

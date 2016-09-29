@@ -1,0 +1,11 @@
+@RELATION xor.txt
+
+@ATTRIBUTE x REAL
+@ATTRIBUTE y REAL
+@ATTRIBUTE output {0,1}
+
+@DATA
+1, 1, 0
+1, 0, 1
+0, 1, 1
+0, 0, 0

@@ -6,7 +6,21 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import com.sun.javafx.util.Utils;
+
+import weka.classifiers.Classifier;
+import weka.classifiers.Evaluation;
+import weka.classifiers.functions.MultilayerPerceptron;
+import weka.classifiers.lazy.IBk;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.converters.ArffSaver;
+import weka.core.converters.ConverterUtils.DataSource;
 
 public class Main {
 	private static final String[] tasks = { 
@@ -21,24 +35,66 @@ public class Main {
 			"digits60-train.csv", "digits60-test.csv" 
 	};
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			knn();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		knn();
+		mlp();
 	}
 
-	private static void knn() throws IOException {
+	private static void mlp() {
+		//		ArrayList<Double>results = new ArrayList<Double>();
+		//		int t = 1;
+		Map<String, Double>results = new HashMap<String,Double>();
+		for(int i = 0; i<tasks.length; i+=2){
+			//		for(int i = 0; i<2; i+=2){
+
+			try {
+				double result = 0.0;
+				for(int j = 0; j<10; j++){
+					Algorithm mlp = new Algorithm(tasks[i], tasks[i+1], "mlp");
+					Instances train = mlp.getTrain();
+					Instances test = mlp.getTest();
+					MultilayerPerceptron perception = new MultilayerPerceptron();
+					//Setting Parameters
+					perception.setLearningRate(1.2);
+					perception.setMomentum(0.2);
+					perception.setTrainingTime(500);
+					perception.setHiddenLayers("4");
+					perception.buildClassifier(train);
+					
+					Evaluation eval = new Evaluation(test);
+					eval.evaluateModel(perception, test);
+					//				eval.crossValidateModel(perception, test, 9, new Random(1));
+
+
+					//				System.out.println(eval.errorRate()); //Printing Training Mean root squared Error
+					//				System.out.println(eval.toSummaryString()); //Summary of Training
+					//				mlp.testClassifier();
+					result+=eval.correlationCoefficient();
+//					System.out.println(eval.toSummaryString("\nResults\n======\n", false));
+				}
+				results.put(tasks[i].substring(0, 8), result/10);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//				t++;
+
+		}
+		for(Map.Entry<String, Double> result: results.entrySet()){
+			System.out.println(result.getKey()+"   "+result.getValue());
+		}
+		System.out.println( "Neural Network Classifier Done" );
+
+	}
+
+	private static void knn(){
 		ArrayList<Double>results = new ArrayList<Double>();
 		int t = 1;
 		for(int i = 0; i<tasks.length; i+=2){
-//		for(int i = 0; i<2; i+=2){
+			//		for(int i = 0; i<2; i+=2){
 
 			try {
-				KNN_Algorithm knn = new KNN_Algorithm(tasks[i], tasks[i+1]);
-				knn.setOptions(i);
+				Algorithm knn = new Algorithm(tasks[i], tasks[i+1], "knn");
+				knn.setKnnOptions(i);
 				double tenRuns = 0.0;
 				for(int run = 0; run<10; run++){
 					tenRuns +=knn.testClassifier();
@@ -50,10 +106,10 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				t++;
-			
+			t++;
+
 		}
-	    System.out.println( "KNN Done" );
+		System.out.println( "KNN Done" );
 	}
 
 	private static void recordResults( ArrayList<Double> results, String classifier, String params ) throws IOException
