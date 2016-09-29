@@ -45,6 +45,7 @@ public class Main {
 			p.setInertia(0.7298);
 			s.addParticle(p);
 		}
+		
 
 		/**
 		 *  // start operate PSO
