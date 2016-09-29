@@ -7,20 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import com.sun.javafx.util.Utils;
-
-import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
-import weka.classifiers.lazy.IBk;
-import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.converters.ArffSaver;
-import weka.core.converters.ConverterUtils.DataSource;
+
 
 public class Main {
 	private static final String[] tasks = { 
@@ -110,28 +101,5 @@ public class Main {
 
 		}
 		System.out.println( "KNN Done" );
-	}
-
-	private static void recordResults( ArrayList<Double> results, String classifier, String params ) throws IOException
-	{
-		DateFormat dateFormat = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
-		Date date = new Date();
-		System.out.println( dateFormat.format( date ) ); //2014/08/06 15:59:48
-		FileWriter write = new FileWriter( "output.txt", true );
-		write.append( "\n" + classifier + "\n" );
-		write.append( "\nRun Date / Time\n" + dateFormat.format( date ) );
-		write.append( "\nPercentage \t Accuracy\n" );
-		write.append( "0% Noise \t\t" + results.get( 0 ).toString() + "\n" );
-		write.append( "5% Noise \t\t" + results.get( 1 ).toString() + "\n" );
-		write.append( "10% Noise \t\t" + results.get( 2 ).toString() + "\n" );
-		write.append( "15% Noise \t\t" + results.get( 3 ).toString() + "\n" );
-		write.append( "20% Noise \t\t" + results.get( 1 ).toString() + "\n" );
-		write.append( "30% Noise \t\t" + results.get( 2 ).toString() + "\n" );
-		write.append( "40% Noise \t\t" + results.get( 3 ).toString() + "\n" );
-		write.append( "50% Noise \t\t" + results.get( 1 ).toString() + "\n" );
-		write.append( "60% Noise \t\t" + results.get( 2 ).toString() + "\n" );
-		write.append("Parameters :  \n");
-		write.append( params );
-		write.close();
 	}
 }
