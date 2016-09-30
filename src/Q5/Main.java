@@ -12,30 +12,15 @@ import weka.core.converters.ConverterUtils.DataSource;
 
 public class Main {
 	final static String[] files = {"balance.data", "wine.data"};
-	final String path = "/Users/JackyChang/Documents/workspace/COMP422_P2_JC/res/Q5/";
-	public void naiveBayesClassfier(String filename){
-		DataSource source = null;
+	final static String path = "/Users/JackyChang/Documents/workspace/COMP422_P2_JC/res/Q5/";
+	public void naiveBayesClassfier(Instances instances, String files2){
 		try {
-			source = new DataSource(path+filename);
-			Instances instances = source.getDataSet();
-			//	         trainingInst.setClassIndex(trainingInst.numAttributes()-1);
-			ArffSaver training_saver = new ArffSaver();
-			training_saver.setInstances(instances);
-			training_saver.setFile(new File(path+filename+".arff"));
-			training_saver.writeBatch();
-			source = new DataSource(path+filename+".arff");
 
-			instances = source.getDataSet();
-			instances.setClassIndex(instances.numAttributes()-1);
 			NaiveBayes cls = new NaiveBayes();
-            cls.buildClassifier(instances);
-            Evaluation eval = new Evaluation(instances);
-			//				eval.crossValidateModel(perception, test, 9, new Random(1));
-            eval.crossValidateModel(cls, instances, 10, new Random(1));
-            System.out.println(filename);
-            System.out.println("naiveBayesClassfier");
-
-            System.out.println(eval.toSummaryString("\nSummary\n======\n", false));
+			cls.buildClassifier(instances);
+			Evaluation eval = new Evaluation(instances);
+			eval.crossValidateModel(cls, instances, 10, new Random(1));
+			System.out.println(eval.toSummaryString("\nSummary\n======\n", false));
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -43,48 +28,57 @@ public class Main {
 		}
 
 	}
-	public void decisionTreeClassfier(String filename){
-		DataSource source = null;
+	public void decisionTreeClassfier(Instances instances, String filename){
 		try {
-			source = new DataSource(path+filename);
-			Instances instances = source.getDataSet();
-			ArffSaver training_saver = new ArffSaver();
-			training_saver.setInstances(instances);
-			training_saver.setFile(new File(path+filename+".arff"));
-			training_saver.writeBatch();
-			source = new DataSource(path+filename+".arff");
-			
-			instances = source.getDataSet();
-			instances.setClassIndex(instances.numAttributes()-1);
-            J48 cls = new J48();
-            cls.buildClassifier(instances);
-            Evaluation eval = new Evaluation(instances);
-            eval.crossValidateModel(cls, instances, 10, new Random(1));
-            System.out.println(filename);
-            System.out.println("decisionTreeClassfier");
-            System.out.println(eval.toSummaryString("\nSummary\n======\n", false));
+
+			J48 cls = new J48();
+			cls.buildClassifier(instances);
+			Evaluation eval = new Evaluation(instances);
+			eval.crossValidateModel(cls, instances, 10, new Random(1));
+			System.out.println(eval.toSummaryString("\nSummary\n======\n", false));
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+	public static Instances getInstances(String filename){
+		DataSource source = null;
+			try {
+				source = new DataSource(path+filename);
+				Instances instances = source.getDataSet();
+				ArffSaver training_saver = new ArffSaver();
+				training_saver.setInstances(instances);
+				training_saver.setFile(new File(path+filename+".arff"));
+				training_saver.writeBatch();
+				source = new DataSource(path+filename+".arff");
+
+				instances = source.getDataSet();
+				instances.setClassIndex(instances.numAttributes()-1);          
+				return instances;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		return null;
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Main m = new Main();
-		m.naiveBayesClassfier(files[0]);
-		System.out.println();
-		System.out.println();
-		m.decisionTreeClassfier(files[0]);
-		System.out.println();
-		System.out.println();
+		for(String filename: files){	
+				Instances instances = getInstances(filename);
+				System.out.println(filename);
+				System.out.println("naiveBayesClassfier");
+				m.naiveBayesClassfier(instances,filename);
+				System.out.println();
+				System.out.println();
+				System.out.println("decisionTreeClassfier");
+				m.decisionTreeClassfier(instances,filename);			
+		}
 
-		m.naiveBayesClassfier(files[1]);
-		System.out.println();
-		System.out.println();
 
-		m.decisionTreeClassfier(files[1]);
 	}
 
 }
